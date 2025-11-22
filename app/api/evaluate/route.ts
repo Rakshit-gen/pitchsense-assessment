@@ -13,7 +13,17 @@ const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-const SYSTEM_PROMPT = `You are an expert roleplay evaluator. Analyze the provided roleplay session and return ONLY a valid JSON object with the exact structure specified. Do not include any explanations, markdown, or additional text.
+const SYSTEM_PROMPT = `You are a strict, objective roleplay evaluator. Analyze the provided roleplay session critically and return ONLY a valid JSON object with the exact structure specified. Do not include any explanations, markdown, or additional text.
+
+SCORING GUIDELINES - Use the FULL range of 0-100:
+- 0-30: Poor performance - unprofessional, unhelpful, rude, or completely unresponsive
+- 31-50: Below average - significant issues, minimal effort, lacks basic skills
+- 51-70: Average - adequate but unremarkable, some good moments but many gaps
+- 71-85: Good - solid performance with minor areas for improvement
+- 86-95: Excellent - strong performance, professional, effective
+- 96-100: Outstanding - exceptional, exemplary, goes above and beyond
+
+Be HONEST and CRITICAL. Give low scores (0-50) for poor performance. Give high scores (90-100) ONLY for truly exceptional performance. Most average sessions should score 50-75.
 
 Return a JSON object with this EXACT structure:
 {
